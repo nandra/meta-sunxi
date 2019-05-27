@@ -100,3 +100,5 @@ FILES_${PN}-test = "${bindir}/sunximali-test"
 # These are closed binaries generated elsewhere so don't check ldflags & text relocations
 INSANE_SKIP_${PN} = "dev-so ldflags textrel"
 INSANE_SKIP_${PN}-test = "dev-so ldflags textrel"
+
+RPROVIDES_${PN} = "libGLESv1_CM.so libGLESv2.so libEGL.so"
