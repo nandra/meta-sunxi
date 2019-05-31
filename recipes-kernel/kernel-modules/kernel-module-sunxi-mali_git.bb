@@ -4,11 +4,13 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/GPL-2.0;md5=80
 
 inherit module
 
-SRC_URI = "git://github.com/3mdeb/sunxi-mali.git;protocol=https;branch=r6p2-patched"
+#SRC_URI = "git://github.com/3mdeb/sunxi-mali.git;protocol=https;branch=r6p2-patched"
+
+SRC_URI = "git://github.com/mripard/sunxi-mali.git;protocol=https;branch=master"
 
 PV = "r6p2"
 
-SRCREV = "69fb37c6e5e3d429a9a84717b82a9bd0d9f970a3"
+SRCREV = "76e9db284a4e892e7b69cf59220a621fd0d93093"
 
 # # common patches
 # SRC_URI += " \
