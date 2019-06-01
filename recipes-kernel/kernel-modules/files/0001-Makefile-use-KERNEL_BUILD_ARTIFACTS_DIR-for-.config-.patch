@@ -1,4 +1,4 @@
-From 85136deafb2ab31ebf3473dff2cd1006a833dde9 Mon Sep 17 00:00:00 2001
+From 54dfa7b053267efcc5a7bf1d3328200343bd7d80 Mon Sep 17 00:00:00 2001
 From: Maciej Pijanowski <maciej.pijanowski@3mdeb.com>
 Date: Thu, 6 Sep 2018 15:02:01 +0200
 Subject: [PATCH] Makefile: use KERNEL_BUILD_ARTIFACTS_DIR for .config file
@@ -6,13 +6,13 @@ Subject: [PATCH] Makefile: use KERNEL_BUILD_ARTIFACTS_DIR for .config file
 
 Signed-off-by: Maciej Pijanowski <maciej.pijanowski@3mdeb.com>
 ---
- Makefile | 2 +-
+ r6p2/src/devicedrv/mali/Makefile | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Makefile b/Makefile
-index c3790a08b28c..0ee82329218b 100755
---- a/Makefile
-+++ b/Makefile
+diff --git a/r6p2/src/devicedrv/mali/Makefile b/r6p2/src/devicedrv/mali/Makefile
+index f39ae4d..c9786e4 100755
+--- a/r6p2/src/devicedrv/mali/Makefile
++++ b/r6p2/src/devicedrv/mali/Makefile
 @@ -88,7 +88,7 @@ endif
  # Define host system directory
  KDIR-$(shell uname -m):=/lib/modules/$(shell uname -r)/build

@@ -4,42 +4,34 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/GPL-2.0;md5=80
 
 inherit module
 
-#SRC_URI = "git://github.com/3mdeb/sunxi-mali.git;protocol=https;branch=r6p2-patched"
-
-SRC_URI = "git://github.com/mripard/sunxi-mali.git;protocol=https;branch=master"
+SRC_URI = "git://github.com/mripard/sunxi-mali.git;protocol=https;branch=master \
+	file://0001-Makefile-use-KERNEL_BUILD_ARTIFACTS_DIR-for-.config-.patch \
+	file://0002-build.sh-Don-t-apply-patches-when-applied.patch \
+"
 
 PV = "r6p2"
 
 SRCREV = "76e9db284a4e892e7b69cf59220a621fd0d93093"
 
-# # common patches
-# SRC_URI += " \
-#     file://0001-makefile-Add-install-target-and-build-the-module-by-.patch \
-#     file://0002-mali-Support-building-against-4.6.patch \
-#     file://0003-mali-Support-building-against-4.8.patch \
-#     file://0004-mali-Print-the-mali-version-at-probe.patch \
-#     file://0005-mali-Add-sunxi-platform.patch \
-#     file://0007-mali-support-building-against-4.10.patch \
-#     file://0008-mali-support-building-against-4.11.patch \
-#     file://0010-mali-support-building-against-4.12.patch \
-#     file://0012-mali-support-building-against-4.14.patch \
-#     file://0015-Enable-parallel-building-passing-variable-to-Makefile.patch \
-#     "
-# 
-# 
-# # r6p2 patches
-# SRC_URI += " \
-#     file://0006-mali-Allow-devfreq-to-run-without-power-models.patch \
-#     file://0009-mali-Fix-user-memory-domain-fault.patch              \
-#     file://0011-mali-support-building-against-4.13.patch             \
-#     file://0013-mali-support-building-against-4.15.patch             \
-#     file://0014-mali-Make-devfreq-optional.patch                     \
-#     file://0016-mali-support-building-against-4.16.patch             \
-#     "
+S = "${WORKDIR}/git"
 
-SRC_URI += "file://0001-Makefile-use-KERNEL_BUILD_ARTIFACTS_DIR-for-.config-.patch"
+addtask do_apply_patch before do_compile after do_patch
 
-S = "${WORKDIR}/git/r6p2/src/devicedrv/mali"
+# call build script to apply patches located in repo source
+do_apply_patch () {
+	cd ${S}
+	./build.sh -r ${PV} -a
+}
+
+# we need to navigate to other directory to build proper driver
+do_compile_prepend() {
+	cd ${S}/${PV}/src/devicedrv/mali
+}
+
+do_install_prepend() {
+	cd ${S}/${PV}/src/devicedrv/mali
+}
+
 
 export KDIR = "${KERNEL_SRC}"
 export KERNEL_BUILD_ARTIFACTS_DIR = "${STAGING_KERNEL_BUILDDIR}"
@@ -54,3 +46,4 @@ EXTRA_OEMAKE +=" \
     "
 
 MODULES_INSTALL_TARGET = "install"
+MODULES_MODULE_SYMVERS_LOCATION = "${PV}/src/devicedrv/mali"

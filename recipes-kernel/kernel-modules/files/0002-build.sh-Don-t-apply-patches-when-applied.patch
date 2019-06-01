@@ -1,0 +1,46 @@
+From 5a2c0ca8fa34ce675262d438072883496cd73c8d Mon Sep 17 00:00:00 2001
+From: Marek Belisko <marek.belisko@open-nandra.com>
+Date: Sat, 1 Jun 2019 18:16:17 +0200
+Subject: [PATCH] build.sh: Don't apply patches when applied
+
+Signed-off-by: Marek Belisko <marek.belisko@open-nandra.com>
+---
+ build.sh | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/build.sh b/build.sh
+index d1fedff..5a6c54e 100755
+--- a/build.sh
++++ b/build.sh
+@@ -1,7 +1,7 @@
+ #!/bin/bash
+ 
+ RELEASE=r6p0
+-JOBS=$(nproc)
++JOBS=4
+ BUILD_OPTS="USING_UMP=0
+ 	    BUILD=release
+ 	    USING_PROFILING=0
+@@ -12,12 +12,19 @@ BUILD_OPTS="USING_UMP=0
+ apply_patches() {
+     pushd $2
+ 
++# don't apply patches if applied alsready
++    if [ -f _patches_applied ]; then
++        exit 0
++    fi
++
+     quilt push -a
+     if [ $? -ne 0 ]; then
+         echo "Error applying patch $patch"
+         exit 1
+     fi
+ 
++    touch _patches_applied
++
+     popd
+ }
+ 
+-- 
+2.7.4
+
