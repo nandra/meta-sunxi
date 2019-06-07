@@ -4,7 +4,7 @@ LICENSE = "Proprietary"
 LIC_FILES_CHKSUM = "file://${S}/EULA%20for%20Mali%20400MP%20_AW.pdf;md5=495406406519c27072a3e6f1e825c0a8"
 
 SRC_URI = " \
-    git://github.com/3mdeb/mali-blobs.git;protocol=https;branch=wayland_includes \
+    git://github.com/bootlin/mali-blobs.git;protocol=https;branch=master \
     file://egl.pc \
     file://wayland-egl.pc \
     file://glesv1_cm.pc \
@@ -74,7 +74,8 @@ PACKAGES = "${PN} ${PN}-dev"
 # x11_dma_buf  for x11 DISTRO_FEATURE
 # wayland for wayland DISTRO_FEATURE
 # fbdev for directfb DISTRO_FEATURE
-MALI_EGL_TYPE ?= "${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'x11_dma_buf', '', d)}${@bb.utils.contains('DISTRO_FEATURES', 'directfb', 'fbdev', '', d)}${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'wayland', '', d)}"
+#MALI_EGL_TYPE ?= "${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'x11', '', d)} ${@bb.utils.contains('DISTRO_FEATURES', 'directfb', 'fbdev', '', d)} ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'wayland', '', d)}"
+MALI_EGL_TYPE = "fbdev"
 MALI_EGL_ARCH ?= "arm"
 
 # skip sanity checks we can't do anything about due to the closed blobs nature
