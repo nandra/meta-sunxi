@@ -4,7 +4,7 @@ LICENSE = "Proprietary"
 LIC_FILES_CHKSUM = "file://${S}/EULA%20for%20Mali%20400MP%20_AW.pdf;md5=495406406519c27072a3e6f1e825c0a8"
 
 SRC_URI = " \
-    git://github.com/3mdeb/mali-blobs.git;protocol=https;branch=wayland_includes \
+    git://github.com/bootlin/mali-blobs.git;protocol=https;branch=master \
     file://egl.pc \
     file://wayland-egl.pc \
     file://glesv1_cm.pc \
