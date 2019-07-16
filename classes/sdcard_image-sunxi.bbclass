@@ -90,9 +90,9 @@ IMAGE_CMD_sunxi-sdimg () {
 	then
 		mcopy -i ${WORKDIR}/boot.img -s ${DEPLOY_DIR_IMAGE}/fex.bin ::script.bin
 	fi
-	if [ -e "${DEPLOY_DIR_IMAGE}/boot.scr" ]
+	if [ -e "${DEPLOY_DIR_IMAGE}/provision/boot.scr" ]
 	then
-		mcopy -i ${WORKDIR}/boot.img -s ${DEPLOY_DIR_IMAGE}/boot.scr ::boot.scr
+		mcopy -i ${WORKDIR}/boot.img -s ${DEPLOY_DIR_IMAGE}/provision/boot.scr ::boot.scr
 	fi
 
 
@@ -112,7 +112,7 @@ IMAGE_CMD_sunxi-sdimg () {
 
 	# write u-boot-spl at the begining of sdcard in one shot
 	SPL_FILE=$(basename ${SPL_BINARY})
-	dd if=${DEPLOY_DIR_IMAGE}/${SPL_FILE} of=${SDIMG} bs=1024 seek=8 conv=notrunc
+	dd if=${DEPLOY_DIR_IMAGE}/provision/${SPL_FILE} of=${SDIMG} bs=1024 seek=8 conv=notrunc
 }
 
 # write uboot.itb for arm64 boards
